@@ -31,15 +31,15 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
 
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (username === '' || password === '') {
+  if (email === '' || password === '') {
     res.status(400).json({ message: "Username or password not present." });
     return;
   }
 
   try {
-    const user = await User.findOne({ username, password });
+    const user = await User.findOne({ email, password });
     if (!user) {
       res.status(401).json({
         messaje: "Login not succesfull",

@@ -7,3 +7,7 @@ const axiosInstance = axios.create({
 export const register = (userData) => {
     return axiosInstance.post('/register', userData);
 }
+
+export const login = (userData) => {
+    return axiosInstance.post('/login', userData)
+}

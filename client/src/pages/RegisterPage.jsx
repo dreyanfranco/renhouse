@@ -15,7 +15,7 @@ const RegisterPage = () => {
             });
             alert('Registration succesful')
         } catch (error) {
-            console.log(error)
+            alert(`Email: ${email} already exists`)
         }
     }
 
