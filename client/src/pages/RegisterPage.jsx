@@ -1,34 +1,43 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { register } from '../services/auth.service';
+import { Link, useNavigate } from 'react-router-dom'
+import authService from '../services/auth.service';
 
 const RegisterPage = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
-    const registerUser = async (event) => {
-        event.preventDefault();
-        try {
-            await register({
-                name, email, password
-            });
-            alert('Registration succesful')
-        } catch (error) {
-            alert(`Email: ${email} already exists`)
-        }
+    const [signupData, setSignupData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    })
+
+    const navigate = useNavigate()
+
+    const handleInputChange = event => {
+        const { value, name } = event.target
+        setSignupData({ ...signupData, [name]: value })
     }
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            await authService.register(signupData);
+            navigate('/');
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
 
     return (
         <div className='mt-4 grow flex items-center justify-around'>
             <div className='mb-64'>
                 <h1 className="text-4xl text-center mb-4">Register</h1>
-                <form className='max-w-md mx-auto' onSubmit={registerUser}>
-                    <input type='text' placeholder='John Doe' name='name' value={name} onChange={event => setName(event.target.value)} />
-                    <input type='email' placeholder='example@email.com' name='email' value={email} onChange={event => setEmail(event.target.value)} />
-                    <input type="password" placeholder='password' name='password' value={password} onChange={event => setPassword(event.target.value)} />
-                    <button className='primary'>Login</button>
+                <form className='max-w-md mx-auto' onSubmit={handleFormSubmit}>
+                    <input type='text' placeholder='John Doe' name='name' value={signupData.name} onChange={handleInputChange} />
+                    <input type='email' placeholder='example@email.com' name='email' value={signupData.email} onChange={handleInputChange} />
+                    <input type="password" placeholder='password' name='password' value={signupData.password} onChange={handleInputChange} />
+                    <button className='primary'>Register</button>
                     <div className='text-center py-2 text-gray-500 '>Already a member? <Link to={'/login'} className='underline text-black'>Login now</Link></div>
                 </form>
             </div>
