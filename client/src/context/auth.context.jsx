@@ -6,6 +6,7 @@ const AuthContext = createContext()
 function AuthProviderWrapper(props) {
 
     const [user, setUser] = useState(null)
+    const [loadUser, setLoadUser] = useState(false)
 
     const authenticateUser = () => {
 
@@ -14,7 +15,10 @@ function AuthProviderWrapper(props) {
         if (token) {
             authService
                 .verify(token)
-                .then(({ data }) => setUser(data))
+                .then(({ data }) => {
+                    setUser(data)
+                    setLoadUser(true)
+                })
                 .catch(err => logout())
         }
     }
@@ -29,7 +33,7 @@ function AuthProviderWrapper(props) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ authenticateUser, user, logout }}>
+        <AuthContext.Provider value={{ authenticateUser, user, logout, loadUser }}>
             {props.children}
         </AuthContext.Provider>
     )

@@ -1,12 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const renhouseSchema = new Schema(
+const placeSchema = new Schema(
     {
-        name: {
+        title: {
             type: String,
             required: [true, 'Name is required']
         },
-        price: {
+        address: {
             type: String,
             required: [true, 'Price is required']
         },
@@ -17,10 +17,21 @@ const renhouseSchema = new Schema(
         },
         imageUrl: {
             type: String,
-            required: [true, 'Image is required']
         },
-        type: {
+        perks: {
             type: String,
+        },
+        extraInfo: {
+            type: String,
+        },
+        checkIn: {
+            type: Number,
+        },
+        checkOut: {
+            type: Number
+        },
+        maxGuests: {
+            type: Number
         },
         owner: {
             type: Schema.Types.ObjectId,
@@ -32,6 +43,6 @@ const renhouseSchema = new Schema(
     }
 )
 
-const Renhouse = model('Renhouse', renhouseSchema);
+const Place = model('Place', placeSchema);
 
-module.exports = Renhouse;
+module.exports = Place;
