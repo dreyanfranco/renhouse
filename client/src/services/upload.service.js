@@ -5,12 +5,12 @@ const axiosInstance = axios.create({
     baseURL: 'http://localhost:5005/upload',
 });
 
-export const uploadImage = (imageForm) => {
-    return axiosInstance.post('/image', imageForm);
+export const uploadImages = (imageForm) => {
+    return axiosInstance.post('/images', imageForm);
 };
 
 const uploadService = {
-    uploadImage
+    uploadImages
 }
 
 

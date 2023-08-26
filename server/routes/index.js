@@ -5,5 +5,6 @@ module.exports = app => {
     const authRoutes = require("./auth.routes");
     app.use("/auth", authRoutes)
 
-
+    const uploadRoutes = require("./upload.routes");
+    app.use("/upload", uploadRoutes)
 }
