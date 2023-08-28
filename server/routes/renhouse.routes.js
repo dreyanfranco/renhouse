@@ -1,6 +1,8 @@
 const renhouseRouter = require("express").Router();
 const mongoose = require("mongoose");
 const Van = require('../models/Renhouse.model');
+const { isAuthenticated } = require("../middleware/jwt.middleware");
+const Place = require("../models/Renhouse.model");
 
 // get all renhouse
 
@@ -57,17 +59,19 @@ renhouseRouter.delete('/:van_id', async (req, res) => {
   }
 })
 
-// create a van 
+// create a place
 
-renhouseRouter.post('', async (req, res) => {
-  const newVanData = req.body;
+renhouseRouter.post('/places', isAuthenticated, async (req, res) => {
+  const newPlaceData = {
+    ...req.body,
+    owner: req.payload._id
+  }
   try {
-    const newVan = await Van.create(newVanData)
-    return res.status(200).json(newVan);
+    const newPlace = await Place.create(newPlaceData)
+    return res.status(200).json(newPlace);
   } catch (error) {
     res.status(500).json(error);
   }
-}
-)
+})
 
 module.exports = renhouseRouter;

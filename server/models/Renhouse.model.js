@@ -8,7 +8,7 @@ const placeSchema = new Schema(
         },
         address: {
             type: String,
-            required: [true, 'Price is required']
+            required: [true, 'Address is required']
         },
         description: {
             type: String,
@@ -16,10 +16,10 @@ const placeSchema = new Schema(
             minlength: [20, 'Description has got to have at least 20 characters']
         },
         imageUrl: {
-            type: String,
+            type: [String],
         },
         perks: {
-            type: String,
+            type: [String],
         },
         extraInfo: {
             type: String,

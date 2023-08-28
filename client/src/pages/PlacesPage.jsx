@@ -1,7 +1,9 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { AuthContext } from '../context/auth.context';
+import renhouseService from '../services/renhouse.service';
 import uploadService from '../services/upload.service';
+
 
 const PlacesPage = () => {
     const { action } = useParams();
@@ -17,6 +19,7 @@ const PlacesPage = () => {
         maxGuests: 1,
     })
     const [loadingImage, setLoadingImage] = useState(false)
+    // const [authenticateUser, user] = useContext(AuthContext)
 
 
     const handleInputChange = (e) => {
@@ -60,11 +63,19 @@ const PlacesPage = () => {
             .catch(error => console.log(error));
     };
 
-
-    const handleFormSubmit = event => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault()
 
-
+        try {
+            const authToken = localStorage.getItem('authToken')
+            if (authToken) {
+                await renhouseService.newPlace(placeData, authToken)
+            } else {
+                console.error('Authorization not found')
+            }
+        } catch (error) {
+            console.log('Error creating new place:', error)
+        }
     }
 
     const { title, address, perks, description, extraInfo, imageUrl, checkIn, checkOut, maxGuests } = placeData
@@ -83,7 +94,7 @@ const PlacesPage = () => {
             )}
             {action === 'new' && (
                 <div>
-                    <form>
+                    <form onSubmit={handleFormSubmit}>
                         <h2 className='text-2xl mt-4'>Title</h2>
                         <input type="text" placeholder='title' value={title} name='title' onChange={handleInputChange} />
                         <h2 className='text-2xl mt-4'>Address</h2>
@@ -141,7 +152,6 @@ const PlacesPage = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                                 </svg>
-
                                 <span>Private entrance</span>
                             </label>
                             <label className='border p-4 flex gap-2 rounded-2xl cursor-pointer'>
@@ -177,5 +187,6 @@ const PlacesPage = () => {
         </div>
     )
 }
+
 
 export default PlacesPage
