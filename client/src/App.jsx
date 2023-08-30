@@ -1,10 +1,13 @@
-import './App.css'
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
+import './App.css';
+import Layout from './components/Layout';
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
-import Layout from './components/Layout';
-import RegisterPage from './pages/RegisterPage';
+import PlaceDetails from "./pages/PlaceDetails";
+import PlacesFormPage from "./pages/PlacesFormPage";
+import PlacesPage from "./pages/PlacesPage";
 import Profile from './pages/Profile';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
 
@@ -14,8 +17,10 @@ function App() {
         <Route index element={<IndexPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path='/account/:subpage?' element={<Profile />} />
-        <Route path='/account/:subpage/:action' element={<Profile />} />
+        <Route path='/account' element={<Profile />} />
+        <Route path='/account/places' element={<PlacesPage />} />
+        <Route path='/account/places/new' element={<PlacesFormPage />} />
+        <Route path='/account/places/:place_id' element={<PlaceDetails />} />
       </Route>
     </Routes>
 
