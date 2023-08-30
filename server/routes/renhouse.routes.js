@@ -1,48 +1,49 @@
 const renhouseRouter = require("express").Router();
 const mongoose = require("mongoose");
-const Van = require('../models/Renhouse.model');
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Place = require("../models/Renhouse.model");
 
-// get all renhouse
+// get all places from user
 
-renhouseRouter.get('', async (req, res) => {
+renhouseRouter.get('/places', isAuthenticated, async (req, res) => {
   try {
-    const renhouseList = await Van
-      .find()
-      .populate('owner')
+    const renhouseList = await Place
+      .find({ owner: req.payload._id })
     return res.status(200).json(renhouseList);
   } catch (error) {
     res.status(500).json(error);
   }
 })
 
-// get all renhouse from host
+// get all places
 
-renhouseRouter.get('/user/:user_id', async (req, res) => {
-  try {
-    const userId = mongoose.Types.ObjectId(req.params.user_id);
-    const userOwnedrenhouse = await Van
-      .find({ owner: userId })
-      .populate('owner')
+// renhouseRouter.get('/public-places', async (req, res) => {
+//   try {
+//     const publicPlaces = await Place.find({})
+//   } catch (error) {
 
-    return res.status(200).json(userOwnedrenhouse)
-  } catch (error) {
-    console.log(error)
-    res.status(500).json(error);
-  }
-})
+//   }
+// })
 
 // get one van by id
 
-renhouseRouter.get('/:van_id', async (req, res) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.van_id)) {
+renhouseRouter.get('/places/:place_id', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.place_id)) {
     res.status(404).json({ message: 'Invalid ID' })
     return;
   }
   try {
-    const vanId = await Van.findById(req.params.van_id)
-    return res.status(200).json(vanId);
+    const placeId = await Place.findById(req.params.place_id)
+    return res.status(200).json(placeId);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+})
+
+renhouseRouter.put('/places/:place_id', async (req, res) => {
+  try {
+    const placeEditById = await Place.findByIdAndUpdate(req.params.place_id, req.body)
+    return res.status(200).json(placeEditById)
   } catch (error) {
     res.status(500).json(error);
   }
@@ -50,10 +51,10 @@ renhouseRouter.get('/:van_id', async (req, res) => {
 
 // delete one van
 
-renhouseRouter.delete('/:van_id', async (req, res) => {
+renhouseRouter.delete('/:place_id', async (req, res) => {
   try {
-    const vanIdAndDelete = await Van.findByIdAndDelete(req.params.van_id)
-    return res.status(200).json(vanIdAndDelete)
+    const placeIdAndDelete = await Place.findByIdAndDelete(req.params.place_id)
+    return res.status(200).json(placeIdAndDelete)
   } catch (error) {
     res.status(500).json(error)
   }
