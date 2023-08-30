@@ -5,7 +5,7 @@ const IndexPage = () => {
     const [places, setPlaces] = useState([])
     useEffect(() => {
         renhouseService
-            .getUserPlaces()
+            .getPlaces()
             .then(({ data }) => setPlaces(data))
             .catch(error => console.log(error))
     }, [])

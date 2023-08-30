@@ -3,27 +3,17 @@ const mongoose = require("mongoose");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 const Place = require("../models/Renhouse.model");
 
-// get all places from user
+// get all places 
 
-renhouseRouter.get('/places', isAuthenticated, async (req, res) => {
+renhouseRouter.get('/places', async (req, res) => {
   try {
-    const renhouseList = await Place
-      .find({ owner: req.payload._id })
+    const renhouseList = await Place.find()
+    // .find({ owner: req.payload._id })
     return res.status(200).json(renhouseList);
   } catch (error) {
     res.status(500).json(error);
   }
 })
-
-// get all places
-
-// renhouseRouter.get('/public-places', async (req, res) => {
-//   try {
-//     const publicPlaces = await Place.find({})
-//   } catch (error) {
-
-//   }
-// })
 
 // get one van by id
 

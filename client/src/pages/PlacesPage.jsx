@@ -11,10 +11,12 @@ const PlacesPage = () => {
 
     useEffect(() => {
         if (user) {
-            const authToken = localStorage.getItem('authToken')
             renhouseService
-                .getUserPlaces(authToken)
-                .then(({ data }) => setPlaces(data))
+                .getPlaces()
+                .then(({ data }) => {
+                    const userPlaces = data.filter(place => place.owner === user._id)
+                    setPlaces(userPlaces)
+                })
                 .catch(error => console.log('Error fetching user places', error))
         }
     }, [user])
@@ -34,19 +36,18 @@ const PlacesPage = () => {
             <div className='mt-4'>
                 {places.length > 0 && places.map(place => (
                     <Link to={`/account/places/${place._id}`} className='flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl' key={place._id}>
-                        <div className='w-32 h-32 bg-gray-300 grow shrink-0'>
+                        <div className='w-32 h-32 bg-gray-300'>
                             {place.imageUrl.length > 0 && (
                                 <img src={place.imageUrl[0]} alt="" />
                             )}
                         </div>
-                        <div className='grow-0 shrink'>
+                        <div className=''>
                             <h2 className='text-xl'>{place.title}</h2>
                             <p className='text-sm mt-2'>{place.description}</p>
                         </div>
                     </Link>
                 ))}
             </div>
-
         </div>
     )
 }

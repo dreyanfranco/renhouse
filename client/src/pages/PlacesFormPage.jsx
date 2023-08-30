@@ -21,14 +21,6 @@ const PlacesFormPage = () => {
         maxGuests: 1,
     })
     const [loadingImage, setLoadingImage] = useState(false)
-    // const { place_id } = useParams();
-
-    // useEffect(() => {
-    //     if (place_id) {
-    //         return;
-    //     }
-    //     axios.get(`places/${place_id}`)
-    // })
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -75,16 +67,23 @@ const PlacesFormPage = () => {
         event.preventDefault()
 
         try {
-            const authToken = localStorage.getItem('authToken')
-            if (authToken) {
-                await renhouseService.newPlace(placeData, authToken)
-                navigate('/account/places')
-            } else {
-                console.error('Authorization not found')
-            }
+            await renhouseService.newPlace(placeData)
+            navigate('/account/places')
         } catch (error) {
             console.log('Error creating new place:', error)
         }
+
+        // try {
+        //     const authToken = localStorage.getItem('authToken')
+        //     if (authToken) {
+        //         await renhouseService.newPlace(placeData, authToken)
+        //         navigate('/account/places')
+        //     } else {
+        //         console.error('Authorization not found')
+        //     }
+        // } catch (error) {
+        //     console.log('Error creating new place:', error)
+        // }
     }
 
     const { title, address, perks, description, extraInfo, imageUrl, checkIn, checkOut, maxGuests } = placeData

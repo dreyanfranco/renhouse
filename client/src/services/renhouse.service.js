@@ -4,34 +4,31 @@ const axiosInstance = axios.create({
     baseURL: 'http://localhost:5005/renhouse'
 })
 
-export const newPlace = (placeData, authToken) => {
-    return axiosInstance.post('/places', placeData, {
-        headers: {
-            Authorization: `Bearer ${authToken}`
-        }
-    })
+axiosInstance.interceptors.request.use((config) => {
+    const storedStoken = localStorage.getItem('authToken')
+
+    if (storedStoken) {
+        config.headers = { Authorization: `Bearer ${storedStoken}` }
+    }
+    return config
+})
+
+export const newPlace = (placeData) => {
+    return axiosInstance.post('/places', placeData)
 }
 
-export const getPublicPlaces = () => {
-    return axiosInstance.get('/public-places')
+export const getPlaces = () => {
+    return axiosInstance.get('/places')
 }
 
-export const getUserPlaces = (authToken) => {
-    return axiosInstance.get('/places', {
-        headers: {
-            Authorization: `Bearer ${authToken}`
-        }
-    })
-}
-
-export const getOnePlaceFromUser = (place_id) => {
+export const getOnePlace = (place_id) => {
     return axiosInstance.get(`places/${place_id}`)
 }
 
 const renhouseService = {
     newPlace,
-    getUserPlaces,
-    getOnePlaceFromUser
+    getPlaces,
+    getOnePlace
 }
 
 export default renhouseService
