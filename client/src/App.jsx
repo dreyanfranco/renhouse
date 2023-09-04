@@ -21,7 +21,7 @@ function App() {
         <Route path='/account' element={<Profile />} />
         <Route path='/account/places' element={<PlacesPage />} />
         <Route path='/account/places/new' element={<PlacesFormPage />} />
-        <Route path='/account/places/:place_id' element={<PlaceDetails />} />
+        <Route path='/places/:place_id' element={<PlaceDetails />} />
         <Route path='/account/edit-places/:place_id' element={<UpdatePlaceFromPage />} />
       </Route>
     </Routes>

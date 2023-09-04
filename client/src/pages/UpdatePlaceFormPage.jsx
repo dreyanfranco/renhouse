@@ -74,7 +74,7 @@ const UpdatePlaceFormPage = () => {
         event.preventDefault()
         try {
             await renhouseService.updatePlace(place_id, placeData)
-            navigate(`/account/places/${place_id}`)
+            navigate(`/places/${place_id}`)
         } catch (error) {
             console.log('Error creating new place:', error)
         }
