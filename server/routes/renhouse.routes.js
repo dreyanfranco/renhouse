@@ -8,14 +8,13 @@ const Place = require("../models/Renhouse.model");
 renhouseRouter.get('/places', async (req, res) => {
   try {
     const renhouseList = await Place.find()
-    // .find({ owner: req.payload._id })
     return res.status(200).json(renhouseList);
   } catch (error) {
     res.status(500).json(error);
   }
 })
 
-// get one van by id
+// get one plan by id
 
 renhouseRouter.get('/places/:place_id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.place_id)) {
@@ -30,7 +29,9 @@ renhouseRouter.get('/places/:place_id', async (req, res) => {
   }
 })
 
-renhouseRouter.put('/places/:place_id', async (req, res) => {
+// edit place
+
+renhouseRouter.patch('/places/:place_id', isAuthenticated, async (req, res) => {
   try {
     const placeEditById = await Place.findByIdAndUpdate(req.params.place_id, req.body)
     return res.status(200).json(placeEditById)
@@ -39,12 +40,16 @@ renhouseRouter.put('/places/:place_id', async (req, res) => {
   }
 })
 
-// delete one van
+// delete one plan
 
 renhouseRouter.delete('/:place_id', async (req, res) => {
   try {
-    const placeIdAndDelete = await Place.findByIdAndDelete(req.params.place_id)
-    return res.status(200).json(placeIdAndDelete)
+    const place = await Place.findById(req.params.place_id)
+    if (place.owner.toString() !== req.payload._id) {
+      return res.status(403).json({ error: "You don't have permission to edit this place." });
+    }
+    const updatedPlace = await Place.findByIdAndDelete(req.params.place_id)
+    return res.status(200).json(updatedPlace)
   } catch (error) {
     res.status(500).json(error)
   }

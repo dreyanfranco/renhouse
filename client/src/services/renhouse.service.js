@@ -25,10 +25,15 @@ export const getOnePlace = (place_id) => {
     return axiosInstance.get(`places/${place_id}`)
 }
 
+export const updatePlace = (place_id, placeData) => {
+    return axiosInstance.patch(`/places/${place_id}`, placeData)
+}
+
 const renhouseService = {
     newPlace,
     getPlaces,
-    getOnePlace
+    getOnePlace,
+    updatePlace
 }
 
 export default renhouseService

@@ -8,6 +8,7 @@ import PlacesFormPage from "./pages/PlacesFormPage";
 import PlacesPage from "./pages/PlacesPage";
 import Profile from './pages/Profile';
 import RegisterPage from './pages/RegisterPage';
+import UpdatePlaceFromPage from "./pages/UpdatePlaceFormPage";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path='/account/places' element={<PlacesPage />} />
         <Route path='/account/places/new' element={<PlacesFormPage />} />
         <Route path='/account/places/:place_id' element={<PlaceDetails />} />
+        <Route path='/account/edit-places/:place_id' element={<UpdatePlaceFromPage />} />
       </Route>
     </Routes>
 

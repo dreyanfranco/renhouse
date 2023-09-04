@@ -1,13 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import ProfileNav from '../components/ProfileNav';
 import renhouseService from '../services/renhouse.service';
 import uploadService from '../services/upload.service';
 
-
-
-const PlacesFormPage = () => {
+const UpdatePlaceFormPage = () => {
     const navigate = useNavigate()
+    const { place_id } = useParams();
     const [placeData, setPlaceData] = useState({
         title: '',
         address: '',
@@ -20,6 +19,15 @@ const PlacesFormPage = () => {
         maxGuests: 1,
     })
     const [loadingImage, setLoadingImage] = useState(false)
+
+    useEffect(() => {
+        renhouseService.getOnePlace(place_id)
+            .then(({ data }) => {
+                setPlaceData(data)
+            }).catch(error => {
+                console.log('Error fetching place details:', error)
+            })
+    }, [])
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -65,8 +73,8 @@ const PlacesFormPage = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault()
         try {
-            await renhouseService.newPlace(placeData)
-            navigate('/account/places')
+            await renhouseService.updatePlace(place_id, placeData)
+            navigate(`/account/places/${place_id}`)
         } catch (error) {
             console.log('Error creating new place:', error)
         }
@@ -98,6 +106,7 @@ const PlacesFormPage = () => {
     }
 
     const { title, address, perks, description, extraInfo, imageUrl, checkIn, checkOut, maxGuests } = placeData
+
     return (
         <div>
             <ProfileNav />
@@ -210,4 +219,4 @@ const PlacesFormPage = () => {
     )
 }
 
-export default PlacesFormPage
+export default UpdatePlaceFormPage
