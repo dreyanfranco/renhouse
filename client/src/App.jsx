@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import './App.css';
 import Layout from './components/Layout';
+import BookingDetails from "./pages/BookingDetails";
+import BookingsPage from "./pages/BookingsPage";
 import IndexPage from './pages/IndexPage';
 import LoginPage from './pages/LoginPage';
 import PlaceDetails from "./pages/PlaceDetails";
@@ -23,6 +25,8 @@ function App() {
         <Route path='/account/places/new' element={<PlacesFormPage />} />
         <Route path='/places/:place_id' element={<PlaceDetails />} />
         <Route path='/account/edit-places/:place_id' element={<UpdatePlaceFromPage />} />
+        <Route path="/account/bookings" element={<BookingsPage />} />
+        <Route path="/account/bookings/:booking_id" element={<BookingDetails />} />
       </Route>
     </Routes>
 

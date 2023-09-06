@@ -1,10 +1,10 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
 
 const Header = () => {
 
-    const { user, logoutUser } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
     return (
         <header className='flex justify-between'>

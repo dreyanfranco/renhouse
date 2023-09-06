@@ -7,4 +7,7 @@ module.exports = app => {
 
     const uploadRoutes = require("./upload.routes");
     app.use("/upload", uploadRoutes)
+
+    const bookingRoutes = require("./booking.routes");
+    app.use("/booking", bookingRoutes)
 }

@@ -1,101 +1,58 @@
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
+import Address from '../components/Address'
+import BookingWidget from '../components/BookingWidget'
+import PlaceGallery from '../components/PlaceGallery'
 import { AuthContext } from '../context/auth.context'
 import renhouseService from '../services/renhouse.service'
 
 const PlaceDetails = () => {
     const [placeData, setPlaceData] = useState(null)
-    const [showAllImages, setShowAllImages] = useState(false)
     const { place_id } = useParams()
     const { user } = useContext(AuthContext)
 
-    const isOwner = placeData && placeData.owner && placeData.owner === user._id
+
 
     useEffect(() => {
         renhouseService
             .getOnePlace(place_id)
-            .then(({ data }) => {
-                setPlaceData(data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+            .then(({ data }) => setPlaceData(data))
+            .catch(error => console.log(error))
 
     }, [place_id])
 
     if (!placeData) {
         return <p>Loading...</p>
     }
+    const isOwner = user && placeData.owner === user._id;
 
-    if (showAllImages) {
-        return (
-            <div className='absolute bg-white min-w-full min-h-screen'>
-                {placeData?.imageUrl.length > 0 && placeData.imageUrl.map(image => (
-                    <div key={place_id}>
-                        <img src={image} />
-                    </div>
-                ))}
-            </div>
-        )
-    }
 
     return (
         <>
             <div className='mt-4 bg-gray-100 -mx-8 px-8 pt-8'>
                 <h1 className='text-3xl'>{placeData.title}</h1>
-                <a className='my-2 block font-semibold underline' target='_blank' href={`https://maps.google.com/?q=${placeData.address}`} rel="noreferrer" >
-                    {placeData.address}
-                </a>
-                <div className='relative'>
-
-                    <div className='grid gap-2 grid-cols-[2fr_1fr]'>
-                        <div>
-                            {placeData.imageUrl && (
-                                <img className='aspect-square object-cover' src={placeData.imageUrl[0]} alt="" srcSet="" />
-                            )}
-                        </div>
-                        <div className='grid'>
-                            {placeData.imageUrl && (
-                                <div>
-
-                                    <img className='aspect-square object-cover' src={placeData.imageUrl[1]} alt="" srcSet="" />
-                                </div>
-                            )}
-                            <div className='overflow-hidden'>
-                                {placeData.imageUrl && (
-                                    <img className='aspect-square object-cover relative top-2' src={placeData.imageUrl[2]} alt="" srcSet="" />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <button onClick={() => setShowAllImages(true)} className='flex gap-1 absolute bottom-2 right-2 py-2 px-4 bg-white rounded-2xl shadow-md shadow-gray-500'>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-                            <path fillRule="evenodd" d="M4.5 12a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clipRule="evenodd" />
-                        </svg>
-                        Show more photos
-                    </button>
-                </div>
-
-                {/* {placeData.imageUrl.length > 0 && (
-                    <div className='flex flex-wrap'>
-                        {placeData.imageUrl.map((url, id) => (
-                            <img key={id} src={url} alt={`Image ${id}`} className='w-32 h-32 bg-gray-300 mr-2 mb-2 object-cover' />
-                        ))}
-                    </div>
-                )} */}
-                <div>
-                    <h2 className="font-semibold text-2xl">Descripion</h2>
-                    {placeData.description}
-                </div>
-                Check-in: {placeData.checkIn}<br />
-                Check-out: {placeData.checkOut}<br />
-                Max number of guests: {placeData.maxGuests}
-                <div className="bg-white -mx-8 px-8 py-8 border-t">
+                <Address>{placeData.address}</Address>
+                <PlaceGallery placeData={placeData} />
+                <div className="mt-8 mb-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
                     <div>
-                        <h2 className="font-semibold text-2xl">Extra info</h2>
+                        <div className='my-4'>
+                            <h2 className="font-semibold text-2xl">Description</h2>
+                            {placeData.description}
+                        </div>
+                        Check-in: {placeData.checkIn}<br />
+                        Check-out: {placeData.checkOut}<br />
+                        Max number of guests: {placeData.maxGuests}
                     </div>
-                    <div className="mb-4 mt-2 text-sm text-gray-700 leading-5">{placeData.extraInfo}</div>
+                    <div>
+                        <BookingWidget placeData={placeData} />
+                    </div>
+                </div>
+                <div className="bg-white -mx-8 px-8 py-8 border-t">
+                    <h2 className="font-semibold text-2xl">Extra info</h2>
+                    <div className="mb-4 mt-2 text-sm text-gray-700 leading-5">
+                        {placeData.extraInfo}
+                    </div>
                 </div>
             </div>
             <div className="text-center flex justify-around">

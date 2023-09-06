@@ -33,6 +33,9 @@ const placeSchema = new Schema(
         maxGuests: {
             type: Number
         },
+        price: {
+            type: Number
+        },
         owner: {
             type: Schema.Types.ObjectId,
             ref: 'User'

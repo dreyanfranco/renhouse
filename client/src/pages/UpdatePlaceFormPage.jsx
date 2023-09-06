@@ -17,6 +17,7 @@ const UpdatePlaceFormPage = () => {
         checkIn: '',
         checkOut: '',
         maxGuests: 1,
+        price: 0
     })
     const [loadingImage, setLoadingImage] = useState(false)
 
@@ -105,7 +106,7 @@ const UpdatePlaceFormPage = () => {
         }
     }
 
-    const { title, address, perks, description, extraInfo, imageUrl, checkIn, checkOut, maxGuests } = placeData
+    const { title, address, perks, description, extraInfo, imageUrl, checkIn, checkOut, maxGuests, price } = placeData
 
     return (
         <div>
@@ -199,7 +200,7 @@ const UpdatePlaceFormPage = () => {
                 <h2 className='text-2xl mt-4'>Extra info</h2>
                 <textarea name='extraInfo' value={extraInfo} onChange={handleInputChange} />
                 <h2 className='text-2xl mt-4'>Check-in & check-out</h2>
-                <div className='grid gap-2 sm:grid-cols-3'>
+                <div className='grid gap-2 sm:grid-cols-4'>
                     <div>
                         <h3 className='mt-2 -mb-1'>Check in time</h3>
                         <input type="text" placeholder='14:00' value={checkIn} name='checkIn' onChange={handleInputChange} />
@@ -211,6 +212,10 @@ const UpdatePlaceFormPage = () => {
                     <div>
                         <h3 className='mt-2 -mb-1'>Max number of guests</h3>
                         <input type="number" value={maxGuests} name='maxGuests' onChange={handleInputChange} />
+                    </div>
+                    <div>
+                        <h3 className='mt-2 -mb-1'>Price</h3>
+                        <input type="number" value={price} name='price' onChange={handleInputChange} />
                     </div>
                 </div>
                 <button className="primary my-4">Save</button>

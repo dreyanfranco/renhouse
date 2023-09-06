@@ -1,6 +1,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import PlaceImg from '../components/PlaceImg';
 import ProfileNav from '../components/ProfileNav';
 import { AuthContext } from '../context/auth.context';
 import renhouseService from '../services/renhouse.service';
@@ -37,9 +38,7 @@ const PlacesPage = () => {
                 {places.length > 0 && places.map(place => (
                     <Link to={`/places/${place._id}`} className='flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl my-3' key={place._id}>
                         <div className='flex w-32 h-32 bg-gray-300'>
-                            {place.imageUrl.length > 0 && (
-                                <img className='object-cover' src={place.imageUrl[0]} alt="" />
-                            )}
+                            <PlaceImg place={place} />
                         </div>
                         <div className=''>
                             <h2 className='text-xl'>{place.title}</h2>
