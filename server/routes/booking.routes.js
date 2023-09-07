@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const mongoose = require("mongoose");
 const { isAuthenticated } = require("../middleware/jwt.middleware.js");
 const Booking = require('../models/Booking.model.js')
 
@@ -27,13 +28,15 @@ router.get('/bookings', isAuthenticated, async (req, res) => {
     }
 })
 
-router.get('/bookings/:booking_id', async (req, res) => {
-    if (!mongoose.Types.ObjectId.isValid(req.params.place_id)) {
+router.get('/bookings/:booking_id', isAuthenticated, async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.booking_id)) {
         res.status(404).json({ message: 'Invalid ID' })
         return;
     }
     try {
-        const bookingId = await Booking.findById(req.params.booking_id)
+        const bookingId = await Booking
+            .findById(req.params.booking_id)
+            .populate('place')
         return res.status(200).json(bookingId);
     } catch (error) {
         res.status(500).json(error);

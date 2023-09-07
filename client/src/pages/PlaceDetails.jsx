@@ -12,8 +12,6 @@ const PlaceDetails = () => {
     const { place_id } = useParams()
     const { user } = useContext(AuthContext)
 
-
-
     useEffect(() => {
         renhouseService
             .getOnePlace(place_id)
