@@ -123,7 +123,7 @@ const BookingWidget = ({ placeData }) => {
                     </div>
                 )}
             </div>
-            <button onClick={handleBooking} className="primary mt-4">
+            <button onClick={handleBooking} className="primary mt-4 w-full">
                 Book
                 {numberOfNights > 0 && (
                     <span> ${numberOfNights * placeData.price}</span>

@@ -218,7 +218,9 @@ const UpdatePlaceFormPage = () => {
                         <input type="number" value={price} name='price' onChange={handleInputChange} />
                     </div>
                 </div>
-                <button className="primary my-4">Save</button>
+                <div className='flex justify-center'>
+                    <button className="primary my-4 w-1/3">Save</button>
+                </div>
             </form>
         </div>
     )

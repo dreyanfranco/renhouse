@@ -27,9 +27,9 @@ const Account = () => {
         <div>
             <ProfileNav />
             {subpage === 'profile' && (
-                <div className='text-center max-w-lg mx-auto'>
+                <div className='text-center max-w-lg mx-auto flex flex-col items-center'>
                     Logged in as {user.name} ({user.email})
-                    <button onClick={logout} className='primary max-w-sm mt-2'>Logout</button>
+                    <button onClick={logout} className='primary w-1/3 mt-2'>Logout</button>
                 </div>
             )}
             {subpage === 'places' && (
