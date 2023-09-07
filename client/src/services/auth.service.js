@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5005/auth',
+    baseURL: `${import.meta.env.VITE_URL}/auth`,
 });
 
 export const register = (userData) => {

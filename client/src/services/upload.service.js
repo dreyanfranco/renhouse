@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5005/upload',
+    baseURL: `${import.meta.env.VITE_URL}/upload`,
 });
 
 export const uploadImages = (imageForm) => {

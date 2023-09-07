@@ -38,10 +38,6 @@ const BookingWidget = ({ placeData }) => {
         numberOfNights = differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))
     }
 
-    if (!user) {
-        return <p>Loading.....</p>
-    }
-
     const bookingData = {
         checkIn: booking.checkIn,
         checkOut: booking.checkOut,
@@ -50,7 +46,7 @@ const BookingWidget = ({ placeData }) => {
         phone: booking.phone,
         place: placeData._id,
         price: placeData.price,
-        user: user._id
+        user: user ? user._id : null
     }
 
 
