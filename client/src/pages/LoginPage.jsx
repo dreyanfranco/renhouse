@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import authService from '../services/auth.service';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
+import authService from '../services/auth.service';
 
 
 const LoginPage = () => {
@@ -38,7 +38,7 @@ const LoginPage = () => {
                 <form className='max-w-md mx-auto' onSubmit={handleSubmit}>
                     <input type='email' placeholder='email.com' name='email' value={loginData.email} onChange={handleInputChange} />
                     <input type="password" placeholder='password' name='password' value={loginData.password} onChange={handleInputChange} />
-                    <button className='primary'>Login</button>
+                    <button className='primary w-full'>Login</button>
                     <div className='text-center py-2 text-gray-500 '>Don't have an account yet? <Link to={'/register'} className='underline text-black'>Register now</Link></div>
                 </form>
             </div>

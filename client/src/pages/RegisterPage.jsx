@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import authService from '../services/auth.service';
 
 const RegisterPage = () => {
@@ -37,7 +37,7 @@ const RegisterPage = () => {
                     <input type='text' placeholder='John Doe' name='name' value={signupData.name} onChange={handleInputChange} />
                     <input type='email' placeholder='example@email.com' name='email' value={signupData.email} onChange={handleInputChange} />
                     <input type="password" placeholder='password' name='password' value={signupData.password} onChange={handleInputChange} />
-                    <button className='primary'>Register</button>
+                    <button className='primary w-full'>Register</button>
                     <div className='text-center py-2 text-gray-500 '>Already a member? <Link to={'/login'} className='underline text-black'>Login now</Link></div>
                 </form>
             </div>
