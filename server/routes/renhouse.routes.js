@@ -40,7 +40,7 @@ renhouseRouter.patch('/places/:place_id', isAuthenticated, async (req, res) => {
   }
 })
 
-// delete one plan
+// delete one place
 
 renhouseRouter.delete('/:place_id', async (req, res) => {
   try {
