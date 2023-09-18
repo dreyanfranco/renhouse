@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import renhouseService from '../services/renhouse.service'
+import { formatCurrency } from '../utilities/formatCurrency'
 
 const IndexPage = () => {
     const [places, setPlaces] = useState([])
@@ -27,7 +28,7 @@ const IndexPage = () => {
                     <h3 className='font-bold'>{place.address}</h3>
                     <h2 className='text-sm text-gray-500'>{place.title}</h2>
                     <div className="mt-1">
-                        <span className="font-bold">price</span>
+                        <span className="font-bold">{formatCurrency(place.price)}</span>
                     </div>
                 </Link>
             ))}

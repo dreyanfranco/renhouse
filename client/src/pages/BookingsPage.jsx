@@ -4,6 +4,7 @@ import BookingDates from '../components/BookingDates'
 import PlaceImg from '../components/PlaceImg'
 import ProfileNav from '../components/ProfileNav'
 import bookingService from '../services/booking.service'
+import { formatCurrency } from '../utilities/formatCurrency'
 
 const BookingsPage = () => {
     const [bookings, setBookings] = useState([])
@@ -37,7 +38,7 @@ const BookingsPage = () => {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
                                     </svg>
-                                    <p>Total price: ${booking.price}</p>
+                                    <p>Total price: {formatCurrency(booking.price)}</p>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import Address from '../components/Address'
 import BookingWidget from '../components/BookingWidget'
 import PlaceGallery from '../components/PlaceGallery'
@@ -10,7 +9,17 @@ import renhouseService from '../services/renhouse.service'
 const PlaceDetails = () => {
     const [placeData, setPlaceData] = useState(null)
     const { place_id } = useParams()
+    const navigate = useNavigate();
+    const location = useLocation();
     const { user } = useContext(AuthContext)
+
+    const handleGoBack = () => {
+        if (location.pathname === '/account/places') {
+            navigate(-1);
+        } else {
+            navigate('/');
+        }
+    };
 
     useEffect(() => {
         renhouseService
@@ -54,12 +63,12 @@ const PlaceDetails = () => {
                 </div>
             </div>
             <div className="text-center flex justify-around">
-                <Link className='inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full' to={'/account/places'}>
+                <button onClick={handleGoBack} className='inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full' to={'/'}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
                     Go Back
-                </Link>
+                </button>
                 {isOwner &&
                     <Link className='inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full' to={`/account/edit-places/${place_id}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

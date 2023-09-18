@@ -20,10 +20,11 @@ function App() {
         <Route index element={<IndexPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path='/places/:place_id' element={<PlaceDetails />} />
+
         <Route path='/account' element={<Profile />} />
         <Route path='/account/places' element={<PlacesPage />} />
         <Route path='/account/places/new' element={<PlacesFormPage />} />
-        <Route path='/places/:place_id' element={<PlaceDetails />} />
         <Route path='/account/edit-places/:place_id' element={<UpdatePlaceFromPage />} />
         <Route path="/account/bookings" element={<BookingsPage />} />
         <Route path="/account/bookings/:booking_id" element={<BookingDetails />} />

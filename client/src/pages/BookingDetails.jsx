@@ -4,6 +4,7 @@ import Address from '../components/Address'
 import BookingDates from '../components/BookingDates'
 import PlaceGallery from '../components/PlaceGallery'
 import bookingService from '../services/booking.service'
+import { formatCurrency } from '../utilities/formatCurrency'
 
 const BookingDetails = () => {
     const { booking_id } = useParams()
@@ -33,7 +34,7 @@ const BookingDetails = () => {
                 </div>
                 <div className='bg-primary p-6 text-white rounded-2xl sm:ml-4 sm:mt-0 mt-4'>
                     <div>Price</div>
-                    <div className='text-3xl'>${bookingData.price}</div>
+                    <div className='text-3xl'>{formatCurrency(price)}</div>
                 </div>
             </div>
             <PlaceGallery placeData={bookingData.place} />

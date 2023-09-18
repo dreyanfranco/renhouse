@@ -46,11 +46,3 @@ router.get('/bookings/:booking_id', isAuthenticated, async (req, res) => {
 
 module.exports = router
 
-    // try {
-    //     const newBooking = await Booking.create({
-    //         place, checkIn, checkOut, numberOfGuests, name, phone, price
-    //     })
-    //     return res.status(200).json(newBooking);
-    // } catch (error) {
-    //     res.status(500).json(error);
-    // }

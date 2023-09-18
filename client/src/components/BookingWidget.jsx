@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import bookingService from "../services/booking.service";
+import { formatCurrency } from "../utilities/formatCurrency";
 
 const BookingWidget = ({ placeData }) => {
 
@@ -38,6 +39,8 @@ const BookingWidget = ({ placeData }) => {
         numberOfNights = differenceInCalendarDays(new Date(booking.checkOut), new Date(booking.checkIn))
     }
 
+    const formattedCurrency = placeData.price * numberOfNights
+
     const bookingData = {
         checkIn: booking.checkIn,
         checkOut: booking.checkOut,
@@ -72,7 +75,7 @@ const BookingWidget = ({ placeData }) => {
     return (
         <div className='bg-white shadow p-4 rounded-2xl'>
             <div className="text-2xl text-center">
-                Price: ${placeData.price}/night
+                Price: {formatCurrency(placeData.price)}/night
             </div>
             <div className='border rounded-xl mt-4'>
                 <div className="flex">
@@ -130,7 +133,7 @@ const BookingWidget = ({ placeData }) => {
             <button onClick={handleBooking} className="primary mt-4 w-full">
                 Book
                 {numberOfNights > 0 && (
-                    <span> ${numberOfNights * placeData.price}</span>
+                    <span> {formatCurrency(formattedCurrency)}</span>
                 )}
             </button>
         </div>
