@@ -26,14 +26,14 @@ const BookingDetails = () => {
         <div className='my-8'>
             <h1 className='text-3xl'>{bookingData.place.title}</h1>
             <Address className="my-2 block">{bookingData.place.address}</Address>
-            <div className='bg-gray-200 p-6 my-6 rounded-2xl flex items-center justify-between'>
+            <div className='bg-gray-200 p-6 my-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between'>
                 <div>
                     <h2 className='text-2xl mb-4'>Booking information</h2>
-                    <BookingDates booking={bookingData} />
+                    <BookingDates className='booking-dates-sm' booking={bookingData} />
                 </div>
-                <div className='bg-primary p-6 text-white rounded-2xl'>
+                <div className='bg-primary p-6 text-white rounded-2xl sm:ml-4 sm:mt-0 mt-4'>
                     <div>Price</div>
-                    <div className='text-3xl'>{bookingData.price}</div>
+                    <div className='text-3xl'>${bookingData.price}</div>
                 </div>
             </div>
             <PlaceGallery placeData={bookingData.place} />

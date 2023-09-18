@@ -34,10 +34,10 @@ const PlacesPage = () => {
                     Add new place
                 </Link>
             </div>
-            <div className='mt-4'>
+            <div className='mt-4 xl:w-10/12 mx-auto'>
                 {places.length > 0 && places.map(place => (
-                    <Link to={`/places/${place._id}`} className='flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl my-3' key={place._id}>
-                        <div className='flex w-32 h-32 bg-gray-300 grow shrink-0'>
+                    <Link to={`/places/${place._id}`} className='flex flex-col md:flex-row  cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl my-3' key={place._id}>
+                        <div className='flex md:w-32 h-32 bg-gray-300 grow shrink-0'>
                             <PlaceImg place={place} />
                         </div>
                         <div className='grow-0 shrink'>

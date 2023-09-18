@@ -82,7 +82,9 @@ const BookingWidget = ({ placeData }) => {
                             type="date"
                             name='checkIn'
                             value={booking.checkIn}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                            className="text-sm sm:text-base"
+                        />
                     </div>
                     <div className='py-3 px-4 border-l'>
                         <label>Check out:</label>
@@ -90,7 +92,9 @@ const BookingWidget = ({ placeData }) => {
                             type="date"
                             name='checkOut'
                             value={booking.checkOut}
-                            onChange={handleInputChange} />
+                            onChange={handleInputChange}
+                            className="text-sm sm:text-base"
+                        />
                     </div>
                 </div>
 
@@ -128,7 +132,6 @@ const BookingWidget = ({ placeData }) => {
                 {numberOfNights > 0 && (
                     <span> ${numberOfNights * placeData.price}</span>
                 )}
-
             </button>
         </div>
     )

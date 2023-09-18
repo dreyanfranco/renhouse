@@ -20,3 +20,11 @@ button.primary {
     background-color: #ffaa22;
     @apply bg-primary p-2 text-white rounded-2xl;
 }
+
+@media (max-width: 420px) {
+  .booking-dates-sm {
+    font-size: 0.79rem; /* Adjust font size as needed */
+    /* margin-top: 1rem;
+    margin-bottom: 1rem;  */
+  }
+}
