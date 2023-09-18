@@ -102,16 +102,23 @@ const PlacesFormPage = () => {
     return (
         <div>
             <ProfileNav />
-            <form onSubmit={handleFormSubmit}>
+            <form className='xl:w-6/12 mx-auto' onSubmit={handleFormSubmit}>
                 <h2 className='text-2xl mt-4'>Title</h2>
                 <input type="text" placeholder='title' value={title} name='title' onChange={handleInputChange} />
                 <h2 className='text-2xl mt-4'>Address</h2>
                 <input type="text" placeholder='address' value={address} name='address' onChange={handleInputChange} />
                 <h2 className='text-2xl mt-4'>Photos</h2>
                 <p>Add photos</p>
-                <div className="mt-2 grid gap-2 grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                <div className="mt-2 grid gap-3 grid-cols-2 sm:grid-cols-4 lg:grid-cols-5">
+                    <label className="h-24 w-32 max-w-xs cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
+                        <input type="file" className='hidden' multiple onChange={handleFileUpload} />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                        </svg>
+                        Upload
+                    </label>
                     {imageUrl.length > 0 && imageUrl.map((url, index) => (
-                        <div className='h-32 flex relative' key={index}>
+                        <div className='h-24 w-32 max-w-xs flex relative' key={index}>
                             <img className='rounded-2xl w-full object-cover' src={url} />
                             <button onClick={event => handleRemovePhoto(event, url)} className="cursor absolute bottom-1 right-1 text-red-500 bg-black bg-opacity-50 rounded-2xl px-3 py-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -132,13 +139,6 @@ const PlacesFormPage = () => {
                             </button>
                         </div>
                     ))}
-                    <label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-600">
-                        <input type="file" className='hidden' multiple onChange={handleFileUpload} />
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
-                        </svg>
-                        Upload
-                    </label>
                 </div>
                 <h2 className='text-2xl mt-4'>Description</h2>
                 <textarea name='description' value={description} onChange={handleInputChange} />
