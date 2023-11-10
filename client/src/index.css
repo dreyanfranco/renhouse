@@ -23,7 +23,7 @@ button.primary {
 
 @media (max-width: 420px) {
   .booking-dates-sm {
-    font-size: 0.79rem; /* Adjust font size as needed */
+    font-size: 0.79rem; 
     /* margin-top: 1rem;
     margin-bottom: 1rem;  */
   }
