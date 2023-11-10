@@ -32,7 +32,7 @@ const PlaceDetails = () => {
 
 
     return (
-        <>
+        <section className='px-8'>
             <div className='mt-4 bg-gray-100 -mx-8 px-8 pt-8'>
                 <h1 className='text-3xl'>{placeData.title}</h1>
                 <Address>{placeData.address}</Address>
@@ -74,7 +74,7 @@ const PlaceDetails = () => {
                     </Link>
                 }
             </div>
-        </>
+        </section>
     )
 }
 
