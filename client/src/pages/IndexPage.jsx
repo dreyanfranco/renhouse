@@ -27,7 +27,7 @@ const IndexPage = () => {
             <div className='my-8'>
                 <h2 className='text-4xl font-bold leading-tight text-center'>Explore latest destination</h2>
             </div>
-            <div className='grid gap-x-6 gap-y-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4'>
+            <div className='grid gap-x-6 gap-y-8 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 px-8'>
                 {sortedPlaces.length > 0 && sortedPlaces.map(place => (
                     <Link key={place._id} to={`/places/${place._id}`}>
                         <div key={place._id} className="bg-gray-500 mb-2 rounded-2xl flex" >
